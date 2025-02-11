@@ -22,10 +22,21 @@
 
 //prototipos
 
+//enumeracion de constantes, cada valor representa
+typedef	enum	e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}				t_opcode;
+
 typedef pthread_mutex_t t_mutex; // acorta el nombre del tipo de dato
 
 typedef struct s_data	t_data;
-
 
 //tenedores
 typedef struct	s_fork

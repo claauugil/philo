@@ -15,15 +15,5 @@
 void	init_data(t_data *table)
 {
 	table->end_dinner = false;
-	table->philos = malloc();
-}
-
-void	controled_malloc(size_t bytes)
-{
-	void	*ret;
-
-	ret = malloc(bytes);
-	if (ret == NULL)
-		print_err("Error while allocating memory with malloc");
-	return (ret);
+	table->philos = controled_malloc(table->n_philos);
 }
