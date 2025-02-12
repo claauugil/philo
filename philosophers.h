@@ -34,10 +34,8 @@ typedef	enum	e_opcode
 	DETACH,
 }				t_opcode;
 
+typedef struct  s_data	t_data;
 typedef pthread_mutex_t t_mutex; // acorta el nombre del tipo de dato
-
-typedef struct s_data	t_data;
-
 //tenedores
 typedef struct	s_fork
 {
@@ -52,7 +50,7 @@ typedef struct s_philo
 	bool				ate_max;
 	long				last_meal_time;
 	t_fork				*left_fork;
-	t_fork				*_fork;
+	t_fork				*right_fork;
 	pthread_t			thread_id;
 	t_mutex				philo_mutex;
 	t_data				*data;
@@ -71,16 +69,21 @@ struct			s_data
 	bool				end_dinner; // when one dies or all are full
 	//bool				all_threads_ready;
 	long				threads_running_count;
-	//t_mutex				data_mutex;
-	//t_mutex				write_mutex;
-	t_fork				*forks;
+	//t_mutex			data_mutex;
+	//t_mutex			write_mutex;
+	t_fork				*forks; // array de forks
 	t_philo				*philos;
 	//pthread_t			monitor;
 };
 
 
-void	parse_input(t_data *data, char *av[]);
-void	print_err(const char *error);
+void		parse_input(t_data *data, char *av[]);
+void		print_err(const char *error);
+void		init_data(t_data *table);
+void		*controled_malloc(size_t bytes);
+void		mutex_handle(t_mutex *mutex, t_opcode opcode);
+void		thread_handle(pthread_t *thread, void *(*foo)(void*), void *data, t_opcode opcode);
+
 
 //void	print_err(const char *error);
 

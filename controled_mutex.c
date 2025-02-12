@@ -42,16 +42,16 @@ static void	mutexes_errors(int status, t_opcode opcode)
 		print_err("Mutex is locked");
 }
 
-void	controled_mutexes(t_mutex *mutex, t_opcode opcode)
+void	mutex_handle(t_mutex *mutex, t_opcode opcode)
 {
 	if (opcode == LOCK)
-		pthread_mutex_lock(mutex);
+		mutexes_errors(pthread_mutex_lock(mutex), opcode);
 	else if (opcode == UNLOCK)
-		pthread_mutex_unlock(mutex);
+		mutexes_errors(pthread_mutex_unlock(mutex), opcode);
 	else if (opcode == INIT)
-		pthread_mutex_init(mutex, NULL);
+		mutexes_errors(pthread_mutex_init(mutex,  NULL), opcode);
 	else if (opcode == DESTROY)
-		pthread_mutex_destroy(mutex);
+		mutexes_errors(pthread_mutex_destroy(mutex), opcode);
 	else
 		print_err("invalid opcode for mutex handle");
 }
