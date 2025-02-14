@@ -49,8 +49,8 @@ typedef struct s_philo
 	long				nbr_meals;
 	bool				ate_max;
 	long				last_meal_time;
-	t_fork				*left_fork;
-	t_fork				*right_fork;
+	t_fork				*fst_fork;
+	t_fork				*scnd_fork;
 	pthread_t			thread_id;
 	t_mutex				philo_mutex;
 	t_data				*data;
@@ -72,7 +72,7 @@ struct			s_data
 	//t_mutex			data_mutex;
 	//t_mutex			write_mutex;
 	t_fork				*forks; // array de forks
-	t_philo				*philos;
+	t_philo				*philos; // array de filosofos
 	//pthread_t			monitor;
 };
 

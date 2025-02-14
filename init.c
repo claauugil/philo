@@ -13,30 +13,38 @@
 #include "philosophers.h"
 
 
-static void	set_forks(t_philo *philos, t_fork *forks, int where_in_table)
+static void	set_forks(t_philo *philos, t_fork *forks, int where_in_table_p)
 {
 	int	p_nbr;
 
 	p_nbr =  philos->data->n_philos;
-
-	philos->right_fork = &forks[where_in_table];
+	if(philos->id % 2 == 0) // pares
+	{
+		philos->fst_fork = &forks[where_in_table_p]; // espera un puntero
+		philos->scnd_fork = &forks[(where_in_table_p + 1) % p_nbr];
+	}
+	else
+	{
+		philos->scnd_fork = &forks[where_in_table_p];
+		philos->fst_fork = &forks[(where_in_table_p + 1) % p_nbr];
+	}
 }
 
 static void	init_philos(t_data *table)
 {
-	int	i;
+	int	philo_pos;
 	t_philo	*philo;
 
-	i = -1;
-	while(++i < table->n_philos)
+	philo_pos = -1;
+	while(++philo_pos < table->n_philos)
 	{
-		philo = &table->philos[i]; // asigna la direccion de memoria del filosofo i dentro del array
-		philo->id = i + 1; // inicializa en 1
+		philo = &table->philos[philo_pos]; // asigna la direccion de memoria del filosofo i dentro del array
+		philo->id = philo_pos + 1; // inicializa en 1
 		philo->ate_max = false;
 		philo->nbr_meals = 0;
 		philo-> data = table;
+		set_forks(philo, table->forks, philo_pos); // no & porque philo ya apunta al ultimo filosofo aisgnado en el bucle
 	}
-	set_forks(philo, table->forks, i); // i es la posicion en la mesa
 }
 
 void	init_data(t_data *table)

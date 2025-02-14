@@ -14,7 +14,7 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 all: $(NAME)
-	@echo "ok"
+	@printf "ok 👍🏻\n"
 
 $(NAME) : $(OBJ)
 	"$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
@@ -24,11 +24,11 @@ $(NAME) : $(OBJ)
 
 clean:
 	@(RM) $(OBJ)
-	@echo "cleaned"
+	@printf "cleaned 🗑️"
 
 fclean: clean
 	@(RM) $(NAME)
-	@echo "fully cleaned"
+	@printf "fully cleaned	@echo "cleaned 🗑️✅"
 
 re: fclean all
 

@@ -15,5 +15,4 @@
 void	print_err(const char *error)
 {
 	printf("%s\n", error);
-	exit(EXIT_FAILURE);
 }
