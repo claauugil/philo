@@ -18,40 +18,32 @@ void	*controled_malloc(size_t bytes)
 
 	controled = malloc(bytes);
 	if (controled == NULL)
-		print_err("Error while allocating memory with malloc");
+	{
+		printf("Error while allocating memory with malloc");
+		return (NULL);
+	}
 	return (controled);
-}
-
-// for mutex
-
-static void	mutexes_errors(int status, t_opcode opcode)
-{
-	if (status == 0) // everything is fine
-		return ;
-	if (EINVAL == status && (opcode == LOCK || opcode == UNLOCK))
-		print_err("The value specified by mutex is invalid.");
-	else if (EINVAL == status && opcode == INIT)
-		print_err("The value specified by attr is invalid.");
-	else if (EDEADLK == status)
-		print_err("A deadlock would occur if the thread blocked waiting for mutex");
-	else if (EPERM == status)
-		print_err("The current thread does not hold a lock on mutex");
-	else if (ENOMEM == status)
-		print_err("The process cannot allocate enough memory to create another mutex");
-	else if (EBUSY == status)
-		print_err("Mutex is locked");
 }
 
 void	mutex_handle(t_mutex *mutex, t_opcode opcode)
 {
 	if (opcode == LOCK)
-		mutexes_errors(pthread_mutex_lock(mutex), opcode);
+		pthread_mutex_lock(mutex);
 	else if (opcode == UNLOCK)
-		mutexes_errors(pthread_mutex_unlock(mutex), opcode);
+		pthread_mutex_unlock(mutex);
 	else if (opcode == INIT)
-		mutexes_errors(pthread_mutex_init(mutex,  NULL), opcode);
+		pthread_mutex_init(mutex, NULL);
 	else if (opcode == DESTROY)
-		mutexes_errors(pthread_mutex_destroy(mutex), opcode);
-	else
-		print_err("invalid opcode for mutex handle");
+		pthread_mutex_destroy(mutex);
+}
+
+void	thread_handle(pthread_t *thread,
+			void *(*foo)(void*), void *data, t_opcode opcode)
+{
+	if (opcode == CREATE)
+		pthread_create(thread, NULL, foo, data);
+	else if (opcode == JOIN)
+		pthread_join(*thread, NULL);
+	else if (opcode == DETACH)
+		pthread_detach(*thread);
 }

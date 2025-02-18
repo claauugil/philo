@@ -1,34 +1,41 @@
-SRC = philosophers.c \
-	  main.c \
-	  utils.c\
-	  parsing_input \
-
-NAME = philosophers
-
+SRC = main.c \
+      init.c \
+      handle_mutex_thread.c \
+      parsing_input.c
+NAME = philo
 OBJ = $(SRC:.c=.o)
-
-INCLUDES = philosophers.h
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
+MAGENTA = \033[38;5;213m
+RESET = \033[0m
+HEADER = "\n$(MAGENTA)\
+██████╗ ██╗  ██╗██╗██╗     ██████╗  ███████╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗ ███████╗\n\
+██╔══██╗██║  ██║██║██║     ██╔═══██╗██╔════╝██╔═══██╗██╔══██╗██║  ██║██╔════╝██╔══██╗██╔════╝\n\
+██████╔╝███████║██║██║     ██║   ██║███████╗██║   ██║██████╔╝███████║█████╗  ██████╔╝███████╗\n\
+██╔═══╝ ██╔══██║██║██║     ██║   ██║╚════██║██║   ██║██╔═══╝ ██╔══██║██╔══╝  ██╔══██╗╚════██║\n\
+██║     ██║  ██║██║███████╗╚██████╔╝███████║╚██████╔╝██║     ██║  ██║███████╗██║  ██║███████║\n\
+╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝\n\
+$(RESET)\n"
+INCLUDES = philosophers.h
 
 all: $(NAME)
-	@printf "ok 👍🏻\n"
 
-$(NAME) : $(OBJ)
-	"$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJ)
+	@printf $(HEADER)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@printf "\033[38;5;226mcompiled ✅\n\033[0m"
 
 %.o: %.c $(INCLUDES)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@(RM) $(OBJ)
-	@printf "cleaned 🗑️"
+	@$(RM) $(OBJ)
+	@printf "\033[38;5;226mcleaned 🗑️\n\033[0m"
 
-fclean: clean
-	@(RM) $(NAME)
-	@printf "fully cleaned	@echo "cleaned 🗑️✅"
+fclean:
+	@$(RM) $(NAME) $(OBJ)
+	@printf "\033[38;5;226mfully cleaned 🗑️\n\033[0m"
 
 re: fclean all
 

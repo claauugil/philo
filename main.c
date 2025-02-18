@@ -12,25 +12,25 @@
 
 #include "philosophers.h"
 
-int main (int ac, char *av[])
+int	main(int ac, char *av[])
 {
 	t_data	data;
 
 	if (ac < 5 || ac > 6)
 	{
-		print_err("Incorrect input\n"
+		printf("Incorrect input\n"
 			"Run as: number_of_philosophers time_to_die time_to_eat time_to_sleep\
 				[number_of_times_each_philosopher_must_eat]");
+		return (-1);
 	}
 	else
 	{
-		//error checking and filling table
-		parse_input(&data, av);
-		//ini & malloc philos and forks
+		if (parse_input(&data, av) == -2)
+			return (-1);
 		init_data(&data);
 		//starting the dinner
-		setting_table(&data);
+		//setting_table(&data);
 		//clean table (freeing to avoid leaks)
-		tidy_table(&data);
+		//tidy_table(&data);
 	}
 }

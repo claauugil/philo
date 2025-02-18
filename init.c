@@ -12,13 +12,12 @@
 
 #include "philosophers.h"
 
-
 static void	set_forks(t_philo *philos, t_fork *forks, int where_in_table_p)
 {
 	int	p_nbr;
 
-	p_nbr =  philos->data->n_philos;
-	if(philos->id % 2 == 0) // pares
+	p_nbr = philos->data->n_philos;
+	if (philos->id % 2 == 0) // pares
 	{
 		philos->fst_fork = &forks[where_in_table_p]; // espera un puntero
 		philos->scnd_fork = &forks[(where_in_table_p + 1) % p_nbr];
@@ -32,17 +31,17 @@ static void	set_forks(t_philo *philos, t_fork *forks, int where_in_table_p)
 
 static void	init_philos(t_data *table)
 {
-	int	philo_pos;
+	int		philo_pos;
 	t_philo	*philo;
 
 	philo_pos = -1;
-	while(++philo_pos < table->n_philos)
+	while (++philo_pos < table->n_philos)
 	{
 		philo = &table->philos[philo_pos]; // asigna la direccion de memoria del filosofo i dentro del array
 		philo->id = philo_pos + 1; // inicializa en 1
 		philo->ate_max = false;
 		philo->nbr_meals = 0;
-		philo-> data = table;
+		philo->data = table;
 		set_forks(philo, table->forks, philo_pos); // no & porque philo ya apunta al ultimo filosofo aisgnado en el bucle
 	}
 }
@@ -53,7 +52,9 @@ void	init_data(t_data *table)
 
 	i = -1;
 	table->end_dinner = false;
+	table->prepared_threads = false;
 	table->philos = controled_malloc(sizeof(t_philo) * table->n_philos); // asigna memoria para filos
+	mutex_handle(table->data_mutex, INIT);
 	table->forks = controled_malloc(sizeof(t_fork) * table->n_philos); // asigna memoria para forks
 	while (++i < table->n_philos) // incializa los forks
 	{
@@ -61,5 +62,5 @@ void	init_data(t_data *table)
 		table->forks[i].fork_id = i;
 	}
 	//inicializa filosofos
-	init_philos(&table);
+	init_philos(table);
 }
