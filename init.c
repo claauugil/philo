@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgil <cgil@student.42madrid.com>           #+#  +:+       +#+        */
+/*   By: claudia <claudia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-07 12:02:32 by cgil              #+#    #+#             */
-/*   Updated: 2025-02-07 12:02:32 by cgil             ###   ########.fr       */
+/*   Created: 2025/02/07 12:02:32 by cgil              #+#    #+#             */
+/*   Updated: 2025/02/19 17:54:04 by claudia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	init_data(t_data *table)
 	table->end_dinner = false;
 	table->prepared_threads = false;
 	table->philos = controled_malloc(sizeof(t_philo) * table->n_philos); // asigna memoria para filos
-	mutex_handle(table->data_mutex, INIT);
+	mutex_handle(&table->data_mutex, INIT);
+	mutex_handle(&table->print_mutex, INIT);
 	table->forks = controled_malloc(sizeof(t_fork) * table->n_philos); // asigna memoria para forks
 	while (++i < table->n_philos) // incializa los forks
 	{

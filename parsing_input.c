@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgil <cgil@student.42madrid.com>           #+#  +:+       +#+        */
+/*   By: claudia <claudia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-02-06 17:15:08 by cgil              #+#    #+#             */
-/*   Updated: 2025-02-06 17:15:08 by cgil             ###   ########.fr       */
+/*   Created: 2025/02/06 17:15:08 by cgil              #+#    #+#             */
+/*   Updated: 2025/02/18 18:07:37 by claudia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 static const char	*is_valid_input(const char *str);
-static	int	ft_isdigit(int n);
+static int			ft_isdigit(int n);
 
 static long	ft_atol(const char *input)
 {
