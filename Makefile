@@ -1,15 +1,23 @@
 SRC = main.c \
       init.c \
       handle_mutex_thread.c \
-      parsing_input.c
+      parsing_input.c \
+	  dinner.c \
+	  get_set.c \
+	  status.c \
+	  sync.c \
+	  timing.c \
+	  routines.c \
+	  oversee.c \
+
 NAME = philo
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
-MAGENTA = \033[38;5;213m
+PINK = \033[38;2;245;166;221m
 RESET = \033[0m
-HEADER = "\n$(MAGENTA)\
+HEADER = "\n$(PINK)\
 ██████╗ ██╗  ██╗██╗██╗     ██████╗  ███████╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗ ███████╗\n\
 ██╔══██╗██║  ██║██║██║     ██╔═══██╗██╔════╝██╔═══██╗██╔══██╗██║  ██║██╔════╝██╔══██╗██╔════╝\n\
 ██████╔╝███████║██║██║     ██║   ██║███████╗██║   ██║██████╔╝███████║█████╗  ██████╔╝███████╗\n\
@@ -17,8 +25,6 @@ HEADER = "\n$(MAGENTA)\
 ██║     ██║  ██║██║███████╗╚██████╔╝███████║╚██████╔╝██║     ██║  ██║███████╗██║  ██║███████║\n\
 ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝\n\
 $(RESET)\n"
-INCLUDES = philosophers.h
-
 all: $(NAME)
 
 $(NAME): $(OBJ)

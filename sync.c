@@ -13,6 +13,27 @@
 #include "philosophers.h"
 
 void	wait_for_threads(t_data *table)
-{	// every filo should wait until all threads are ready
-	while (!get_bool(&table->data_mutex, &table->prepared_threads));
+{
+	while (!get_bool(&table->data_mutex, &table->prepared_threads))
+		;
+}
+//verify that all threads are running
+
+bool	active_threads(t_mutex *mutex, long *threads, long n_philos)
+{
+	bool	done;
+
+	done = false;
+	mutex_handle(mutex, LOCK);
+	if (*threads == n_philos)
+		done =  true;
+	mutex_handle(mutex, UNLOCK);
+	return (done);
+}
+
+void	increase_long(t_mutex *mutex, long *value)
+{
+	mutex_handle(mutex, LOCK);
+	(*value)++;
+	mutex_handle(mutex, UNLOCK);
 }

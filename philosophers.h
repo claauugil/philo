@@ -31,14 +31,14 @@ typedef enum e_opcode
 	DETACH,
 }				t_opcode;
 
-typedef enum  e_time_code
+typedef enum e_time_code
 {
 	SECOND,
 	MILISECOND,
 	MICROSECOND,
 }				t_time_code;
 
-typedef enum  e_status
+typedef enum e_status
 {
 	SLEEPING,
 	EATING,
@@ -49,7 +49,7 @@ typedef enum  e_status
 }				t_philo_status;
 
 typedef struct s_data	t_data;
-typedef pthread_mutex_t	t_mutex; // acorta el nombre del tipo de dato
+typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_fork
 {
@@ -75,14 +75,16 @@ struct			s_data
 	long				time_to_die;
 	long				time_to_sleep;
 	long				time_to_eat;
-	long				must_eat; //optional -1 means there is no input
+	long				must_eat;
 	long				start_dinner; // timestamp
-	bool				end_dinner; // when one dies or all are full
-	bool				prepared_threads; // sincronizar filosofos
-	t_mutex				data_mutex; // avoid data  rac es when reading from table
+	bool				end_dinner;
+	bool				prepared_threads;
+	long				n_running_threads;
+	t_mutex				data_mutex;
 	t_mutex				print_mutex;
-	t_fork				*forks; // array de forks
-	t_philo				*philos; // array de filosofos
+	t_fork				*forks;
+	t_philo				*philos;
+	pthread_t			overseeing;
 };
 
 int		parse_input(t_data *data, char *av[]);
@@ -98,6 +100,12 @@ bool	get_bool(t_mutex *mutex, bool *value);
 void	set_long(t_mutex *mutex, long *dest, long value);
 long	get_long(t_mutex *mutex, long *value);
 void	wait_for_threads(t_data *table);
-long    gettime(t_time_code time_code);
+long	get_time(t_time_code time_code);
 bool	end_simulation(t_data *table);
 void	precise_usleep(long usec, t_data *table);
+void	print_status(t_philo_status status, t_philo *philo);
+void	thinking(t_philo *philo);
+void	eat(t_philo *philo);
+bool	active_threads(t_mutex *mutex, long *threads, long n_philos);
+void	increase_long(t_mutex *mutex, long *value);
+void	*oversee_dinner(void *data);

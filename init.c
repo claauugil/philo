@@ -42,6 +42,7 @@ static void	init_philos(t_data *table)
 		philo->ate_max = false;
 		philo->nbr_meals = 0;
 		philo->data = table;
+		mutex_handle(&philo->philo_mutex, INIT);
 		set_forks(philo, table->forks, philo_pos); // no & porque philo ya apunta al ultimo filosofo aisgnado en el bucle
 	}
 }
@@ -53,6 +54,7 @@ void	init_data(t_data *table)
 	i = -1;
 	table->end_dinner = false;
 	table->prepared_threads = false;
+	table->prepared_threads = 0;
 	table->philos = controled_malloc(sizeof(t_philo) * table->n_philos); // asigna memoria para filos
 	mutex_handle(&table->data_mutex, INIT);
 	mutex_handle(&table->print_mutex, INIT);

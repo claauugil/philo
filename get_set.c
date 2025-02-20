@@ -43,6 +43,7 @@ long	get_long(t_mutex *mutex, long *value)
 	mutex_handle(mutex, LOCK);
 	done = *value;
 	mutex_handle(mutex, UNLOCK);
+	return (done);
 }
 
 bool	end_simulation(t_data *table)

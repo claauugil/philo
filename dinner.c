@@ -12,26 +12,38 @@
 
 #include "philosophers.h"
 
-// need to wait for each to end
-// have an endless loop
-
-void	*start_dinner(void *info) // dinner simulation
+void	*only_philo(void *phi)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)info;
+	philo = (t_philo *)phi;
 	wait_for_threads(philo->data);
-	// set last meal time
+	set_long(&philo->philo_mutex, &philo->last_meal_time, MILISECOND);
+	increase_long(&philo->data->data_mutex, &philo->data->n_running_threads);
+	print_status(TAKING_FIRST_FORK, philo);
+	while (!end_simulation(philo->data))
+		usleep(200);
+	return (NULL);
+}
+
+void	*start_dinner(void *data) // dinner simulation
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_for_threads(philo->data);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILISECOND));
+	increase_long(&philo->data->data_mutex, &philo->data->n_running_threads);
 	while (!end_simulation(philo->data)) // until the dinner isnt finished
 	{
-		// check if full 
 		if (philo->ate_max)
-			break;
+			break ;
 		eat(philo);
-		//sleep(philo);
-		//think(philo);
-		//print_status
+		print_status(SLEEPING, philo);
+		precise_usleep(philo->data->time_to_sleep, philo->data);
+		thinking(philo);
 	}
+	return (NULL);
 }
 
 void	prep_dinner(t_data *table) // dinner_start
@@ -42,20 +54,20 @@ void	prep_dinner(t_data *table) // dinner_start
 	if (table-> must_eat == 0) // si ya alcanzo el max_num de comidas
 		return ;
 	else if (table->n_philos == 1)
-		return ;
+		thread_handle(&table->philos[0].thread_id,
+			only_philo, &table->philos[0], CREATE);
 	else // se inicializa cada hilo
 	{
 		while (++i < table->n_philos) // crea los hilos == philo_num
 			thread_handle(&table->philos[i].thread_id, start_dinner,
 				&table->philos[i], CREATE);
 	}
-	//if all threads ready, dinner begins
+	thread_handle(&table->overseeing, oversee_dinner, table, CREATE);
 	table->start_dinner = get_time(MILISECOND);
 	set_bool(&table->data_mutex, &table->prepared_threads, true);
-	//wait 
+	i = -1;
 	while (++i < table->n_philos)
 		thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
-	// if here philos == full
-	
-	
+	//set_bool(&data->data_mutex, &data->end_dinner, true);
+	//mutex_handle(&data->mo);
 }
