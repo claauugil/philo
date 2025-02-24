@@ -54,7 +54,7 @@ void	init_data(t_data *table)
 	i = -1;
 	table->end_dinner = false;
 	table->prepared_threads = false;
-	table->prepared_threads = 0;
+	table->n_running_threads = 0;
 	table->philos = controled_malloc(sizeof(t_philo) * table->n_philos); // asigna memoria para filos
 	mutex_handle(&table->data_mutex, INIT);
 	mutex_handle(&table->print_mutex, INIT);

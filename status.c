@@ -33,7 +33,7 @@ void	print_status(t_philo_status status, t_philo *philo)
 	else if (status == SLEEPING && !end_simulation(philo->data))
 		printf("\033[38;2;126;161;239m%ld %d is sleeping\033[0m\n", elapsed,
 			philo->id);
-	else if (status == DEAD && !end_simulation(philo->data))
+	else if (status == DEAD)
 		printf("\033[38;2;226;105;115m%ld %d died 😵\033[0m\n", elapsed,
 			philo->id);
 	mutex_handle(&philo->data->print_mutex, UNLOCK);
