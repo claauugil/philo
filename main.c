@@ -28,7 +28,7 @@ int	main(int ac, char *av[])
 			return (-1);
 		init_data(&data);
 		prep_dinner(&data);
-		//clean table (freeing to avoid leaks)
+		clean_table(&data);
 		//tidy_table(&data);
 	}
 }

@@ -3,6 +3,7 @@ SRC = main.c \
       handle_mutex_thread.c \
       parsing_input.c \
 	  dinner.c \
+	  clean.c \
 	  get_set.c \
 	  status.c \
 	  sync.c \

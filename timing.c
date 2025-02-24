@@ -48,3 +48,17 @@ void	precise_usleep(long usec, t_data *table)
 		}
 	}
 }
+
+void	anti_starving(t_philo *philo)
+{
+	if (philo->data->n_philos % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			precise_usleep(3e4, philo->data);
+	}
+	else
+	{
+		if (philo->id % 2)
+			thinking(philo, true);
+	}
+}

@@ -56,9 +56,13 @@ void	init_data(t_data *table)
 	table->prepared_threads = false;
 	table->n_running_threads = 0;
 	table->philos = controled_malloc(sizeof(t_philo) * table->n_philos); // asigna memoria para filos
+	if (table->philos == NULL)
+		return;
 	mutex_handle(&table->data_mutex, INIT);
 	mutex_handle(&table->print_mutex, INIT);
 	table->forks = controled_malloc(sizeof(t_fork) * table->n_philos); // asigna memoria para forks
+	if (table->forks == NULL)
+		return ;
 	while (++i < table->n_philos) // incializa los forks
 	{
 		mutex_handle(&table->forks[i].fork, INIT); // acceder al fork que quiero

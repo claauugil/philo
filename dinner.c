@@ -34,6 +34,7 @@ void	*start_dinner(void *data) // dinner simulation
 	wait_for_threads(philo->data);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILISECOND));
 	increase_long(&philo->data->data_mutex, &philo->data->n_running_threads);
+	anti_starving(philo);
 	while (!end_simulation(philo->data)) // until the dinner isnt finished
 	{
 		if (philo->ate_max)
@@ -41,7 +42,7 @@ void	*start_dinner(void *data) // dinner simulation
 		eat(philo);
 		print_status(SLEEPING, philo);
 		precise_usleep(philo->data->time_to_sleep, philo->data);
-		thinking(philo);
+		thinking(philo, false);
 	}
 	return (NULL);
 }
@@ -68,6 +69,6 @@ void	prep_dinner(t_data *table) // dinner_start
 	i = -1;
 	while (++i < table->n_philos)
 		thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
-	//set_bool(&data->data_mutex, &data->end_dinner, true);
-	//mutex_handle(&data->mo);
+	set_bool(&table->data_mutex, &table->end_dinner, true); // all have eaten
+	thread_handle(&table->overseeing, NULL, NULL, JOIN);
 }
