@@ -40,12 +40,12 @@ void	*oversee_dinner(void *data)
 	while (!end_simulation(table))
 	{
 		i = -1;
-		while (++i < table->n_philos && !end_simulation(table))
+		while (++i < table->n_philos)
 		{
 			if (one_died(table->philos + i))
 			{
 				set_bool(&table->data_mutex, &table->end_dinner, true);
-				print_status(DEAD, table->philos);
+				print_status(DEAD, table->philos + i);
 			}
 		}
 	}

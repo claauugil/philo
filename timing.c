@@ -42,7 +42,9 @@ void	precise_usleep(long usec, t_data *table)
 		if (left > 1e3) // milisecond
 			usleep(left / 2);
 		else
+		{
 			while (get_time(MICROSECOND) - begin < usec)
 				;
+		}
 	}
 }

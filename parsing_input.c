@@ -48,7 +48,7 @@ int	parse_input(t_data *data, char *av[])
 	data->time_to_eat *= 1e3;
 	data->time_to_sleep *= 1e3;
 	if (data->time_to_die < 6e4
-		|| data->time_to_die < 6e4 || data->time_to_die < 6e4)
+		|| data->time_to_sleep < 6e4 || data->time_to_eat < 6e4)
 	{
 		printf("The timestamps must be major than 60ms");
 		return (-2);
