@@ -14,7 +14,6 @@
 
 static const char	*is_valid_input(const char *str);
 static int			ft_isdigit(int n);
-static const char 	*just_num(const char *s);
 
 static long	ft_atol(const char *input)
 {
@@ -26,14 +25,12 @@ static long	ft_atol(const char *input)
 	input = is_valid_input(input);
 	if (!input)
 		return (-2);
-	if (just_num(input) == NULL)
-		return (-2);
 	while (ft_isdigit(input[i]))
 		num = (num * 10) + (input[i++] - '0');
 	if (num > INT_MAX)
 	{
-		printf("The value is too big");
-		return (-2); // en caso de error
+		printf("The value is bigger than INT_MAX");
+		return (-2);
 	}
 	return (num);
 }
@@ -88,31 +85,42 @@ static const char	*is_valid_input(const char *str)
 	}
 	if (!ft_isdigit(*str))
 	{
-		printf("Invalid input: input is not a number\n");
+		printf("The input has non numeric characters\n");
 		return (NULL);
 	}
 	while (ft_isdigit(str[i]))
 		i++;
-	if (i > 10)
+	if (str[i] != '\0')
+	{
+		printf("The input has non numeric characters\n");
+		return (NULL);
+	}
+	return (str);
+}
+
+/*static const char	*is_valid_input(const char *str)
+{
+
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
+	{
+		printf("The program does not accept negative values\n");
+		return (NULL);
+	}
+	if (!ft_isdigit(*str))
+	{
+		printf("Invalid input: input is not a number\n");
+		return (NULL);
+	}
+	while (ft_isdigit(*str))
+		str++;
+	if (*str > 10)
 	{
 		printf("The value is bigger than INT_MAX\n");
 		return (NULL);
 	}
 	return (str);
-}
-static const char *just_num(const char *s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (!ft_isdigit(s[i]))
-		{
-			printf("The input has non numeric characters\n");
-			return (NULL);
-		}
-		i++;
-	}
-	return (s);
-}
+}*/
