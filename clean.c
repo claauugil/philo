@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-void	clean_table(t_data *table)
+void	free_dinner(t_data *table)
 {
 	t_philo	*philo;
 	int		i;

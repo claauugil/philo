@@ -44,6 +44,4 @@ void	thread_handle(pthread_t *thread,
 		pthread_create(thread, NULL, foo, data);
 	else if (opcode == JOIN)
 		pthread_join(*thread, NULL);
-	else if (opcode == DETACH)
-		pthread_detach(*thread);
 }

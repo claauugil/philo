@@ -4,10 +4,10 @@ SRC = main.c \
       parsing_input.c \
 	  dinner.c \
 	  clean.c \
-	  get_set.c \
-	  status.c \
+	  modify_vals.c \
+	  actual_status.c \
 	  sync.c \
-	  timing.c \
+	  timing_utils.c \
 	  routines.c \
 	  oversee.c \
 
@@ -38,11 +38,11 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(RM) $(OBJ)
-	@printf "\033[38;5;226mcleaned 🗑️\n\033[0m"
+	@printf "\033[38;5;250mcleaned 🗑️\n\033[0m"
 
 fclean:
 	@$(RM) $(NAME) $(OBJ)
-	@printf "\033[38;5;226mfully cleaned 🗑️\n\033[0m"
+	@printf "\033[38;5;250mfully cleaned 🗑️\n\033[0m"
 
 re: fclean all
 

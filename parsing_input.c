@@ -97,30 +97,3 @@ static const char	*is_valid_input(const char *str)
 	}
 	return (str);
 }
-
-/*static const char	*is_valid_input(const char *str)
-{
-
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '+')
-		str++;
-	else if (*str == '-')
-	{
-		printf("The program does not accept negative values\n");
-		return (NULL);
-	}
-	if (!ft_isdigit(*str))
-	{
-		printf("Invalid input: input is not a number\n");
-		return (NULL);
-	}
-	while (ft_isdigit(*str))
-		str++;
-	if (*str > 10)
-	{
-		printf("The value is bigger than INT_MAX\n");
-		return (NULL);
-	}
-	return (str);
-}*/

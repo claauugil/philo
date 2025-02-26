@@ -17,6 +17,7 @@ void	thinking(t_philo *philo, bool pre)
 	long	t_eat;
 	long	t_sleep;
 	long	t_think;
+
 	if (!pre)
 		print_status(THINKING, philo);
 	if (philo->data->n_philos % 2 == 0)
@@ -26,10 +27,10 @@ void	thinking(t_philo *philo, bool pre)
 	t_think = t_eat * 2 - t_sleep;
 	if (t_think < 0)
 		t_think = 0;
-	precise_usleep(t_think * 0.42, philo->data);
+	ft_usleep(t_think * 0.42, philo->data);
 }
 
-void	eat(t_philo *philo)
+void	eating(t_philo *philo)
 {
 	mutex_handle(&philo->fst_fork->fork, LOCK);
 	print_status(TAKING_FIRST_FORK, philo);
@@ -38,7 +39,7 @@ void	eat(t_philo *philo)
 	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILISECOND));
 	philo->nbr_meals++;
 	print_status(EATING, philo);
-	precise_usleep(philo->data->time_to_eat, philo->data);
+	ft_usleep(philo->data->time_to_eat, philo->data);
 	if (philo->data->must_eat > 0 && philo->nbr_meals == philo->data->must_eat)
 		set_bool(&philo->philo_mutex, &philo->ate_max, true);
 	mutex_handle(&philo->fst_fork->fork, UNLOCK);

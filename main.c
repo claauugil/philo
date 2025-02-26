@@ -18,7 +18,8 @@ int	main(int ac, char *av[])
 
 	if (ac < 5 || ac > 6)
 	{
-		printf("Run as: number_of_philosophers time_to_die time_to_eat time_to_sleep "
+		printf("Run as: number_of_philosophers"
+			"time_to_die time_to_eat time_to_sleep "
 			"[number_of_times_each_philosopher_must_eat]");
 		return (-1);
 	}
@@ -28,7 +29,6 @@ int	main(int ac, char *av[])
 			return (-1);
 		init_data(&data);
 		prep_dinner(&data);
-		clean_table(&data);
-		//tidy_table(&data);
+		free_dinner(&data);
 	}
 }

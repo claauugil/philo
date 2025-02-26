@@ -26,7 +26,7 @@ void	*only_philo(void *phi)
 	return (NULL);
 }
 
-void	*start_dinner(void *data) // dinner simulation
+void	*start_dinner(void *data)
 {
 	t_philo	*philo;
 
@@ -35,31 +35,31 @@ void	*start_dinner(void *data) // dinner simulation
 	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILISECOND));
 	increase_long(&philo->data->data_mutex, &philo->data->n_running_threads);
 	anti_starving(philo);
-	while (!end_simulation(philo->data)) // until the dinner isnt finished
+	while (!end_simulation(philo->data))
 	{
 		if (philo->ate_max)
 			break ;
-		eat(philo);
+		eating(philo);
 		print_status(SLEEPING, philo);
-		precise_usleep(philo->data->time_to_sleep, philo->data);
+		ft_usleep(philo->data->time_to_sleep, philo->data);
 		thinking(philo, false);
 	}
 	return (NULL);
 }
 
-void	prep_dinner(t_data *table) // dinner_start
+void	prep_dinner(t_data *table)
 {
 	int	i;
 
 	i = -1;
-	if (table-> must_eat == 0) // si ya alcanzo el max_num de comidas
+	if (table-> must_eat == 0)
 		return ;
 	else if (table->n_philos == 1)
 		thread_handle(&table->philos[0].thread_id,
 			only_philo, &table->philos[0], CREATE);
-	else // se inicializa cada hilo
+	else
 	{
-		while (++i < table->n_philos) // crea los hilos == philo_num
+		while (++i < table->n_philos)
 			thread_handle(&table->philos[i].thread_id, start_dinner,
 				&table->philos[i], CREATE);
 	}
@@ -69,6 +69,6 @@ void	prep_dinner(t_data *table) // dinner_start
 	i = -1;
 	while (++i < table->n_philos)
 		thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
-	set_bool(&table->data_mutex, &table->end_dinner, true); // all have eaten
+	set_bool(&table->data_mutex, &table->end_dinner, true);
 	thread_handle(&table->overseeing, NULL, NULL, JOIN);
 }
