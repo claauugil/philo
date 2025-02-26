@@ -46,6 +46,7 @@ void	*oversee_dinner(void *data)
 			{
 				set_bool(&table->data_mutex, &table->end_dinner, true);
 				print_status(DEAD, table->philos + i);
+				break ;
 			}
 		}
 	}

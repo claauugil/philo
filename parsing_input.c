@@ -14,6 +14,7 @@
 
 static const char	*is_valid_input(const char *str);
 static int			ft_isdigit(int n);
+static const char 	*just_num(const char *s);
 
 static long	ft_atol(const char *input)
 {
@@ -24,7 +25,9 @@ static long	ft_atol(const char *input)
 	i = 0;
 	input = is_valid_input(input);
 	if (!input)
-		return (-1);
+		return (-2);
+	if (just_num(input) == NULL)
+		return (-2);
 	while (ft_isdigit(input[i]))
 		num = (num * 10) + (input[i++] - '0');
 	if (num > INT_MAX)
@@ -41,8 +44,8 @@ int	parse_input(t_data *data, char *av[])
 	data->time_to_die = ft_atol(av[2]);
 	data->time_to_eat = ft_atol(av[3]);
 	data->time_to_sleep = ft_atol(av[4]);
-	if (data->n_philos == -1 || data->time_to_die == -1
-		|| data->time_to_eat == -1 || data->time_to_sleep == -1)
+	if (data->n_philos == -2 || data->time_to_die == -2
+		|| data->time_to_eat == -2 || data->time_to_sleep == -2)
 		return (-2);
 	data->time_to_die *= 1e3;
 	data->time_to_eat *= 1e3;
@@ -85,15 +88,31 @@ static const char	*is_valid_input(const char *str)
 	}
 	if (!ft_isdigit(*str))
 	{
-		printf("Invalid input: input is not a number");
+		printf("Invalid input: input is not a number\n");
 		return (NULL);
 	}
 	while (ft_isdigit(str[i]))
 		i++;
 	if (i > 10)
 	{
-		printf("The value is bigger than INT_MAX");
+		printf("The value is bigger than INT_MAX\n");
 		return (NULL);
 	}
 	return (str);
+}
+static const char *just_num(const char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+		{
+			printf("The input has non numeric characters\n");
+			return (NULL);
+		}
+		i++;
+	}
+	return (s);
 }
