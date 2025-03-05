@@ -17,7 +17,6 @@ void	thinking(t_philo *philo)
 	long	t_eat;
 	long	t_sleep;
 	long	t_think;
-	
 
 	print_status(THINKING, philo);
 	if (philo->data->n_philos % 2 == 0)

@@ -20,7 +20,6 @@ void	*routine(void *data)
 	wait_for_threads(philo->data);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, get_time(MILISECOND));
 	increase_long(&philo->data->data_mutex, &philo->data->n_running_threads);
-	//balanced_dinning(philo);
 	while (!end_simulation(philo->data))
 	{
 		if (philo->ate_max)
