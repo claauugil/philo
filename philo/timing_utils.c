@@ -6,7 +6,7 @@
 /*   By: claudia <claudia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:56:34 by cgil              #+#    #+#             */
-/*   Updated: 2025/03/05 13:19:47 by claudia          ###   ########.fr       */
+/*   Updated: 2025/03/08 17:16:25 by claudia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,3 @@ void	ft_usleep(long usec, t_data *table)
 		}
 	}
 }
-
-/*void	balanced_dinning(t_philo *philo)
-{
-	if (philo->data->n_philos % 2 == 0)
-	{
-		if (philo->id % 2 == 0)
-			ft_usleep(30000, philo->data);
-	}
-	else
-	{
-		if (philo->id % 2)
-			thinking(philo, true);
-	}
-}*/

@@ -6,7 +6,7 @@
 /*   By: claudia <claudia@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 16:22:34 by cgil              #+#    #+#             */
-/*   Updated: 2025/03/05 13:21:52 by claudia          ###   ########.fr       */
+/*   Updated: 2025/03/08 17:17:05 by claudia          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,5 @@ bool	active_threads(t_mutex *mutex, long *threads, long n_philos);
 void	increase_long(t_mutex *mutex, long *value);
 void	*oversee_dinner(void *data);
 void	free_dinner(t_data *table);
-//void	balanced_dinning(t_philo *philo);
 
 #endif
