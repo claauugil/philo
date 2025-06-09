@@ -1,33 +1,53 @@
 # 🍽️ Philosophers
 
-The Dining Philosophers problem is a classic synchronization problem, where multiple philosophers sit at a table and eat. They need two forks to eat, but there is a limited number of forks available. This simulation demonstrates concurrency management using `pthread` and `mutex` in C, allowing philosophers to safely share resources while avoiding deadlock and starvation.
+El problema de los Filósofos Comensales es un clásico en sincronización, donde varios filósofos se sientan a una mesa para comer. Cada filósofo necesita dos tenedores para comer, pero hay una cantidad limitada de tenedores disponibles. Esta simulación muestra cómo gestionar la concurrencia usando `pthread` y `mutex` en C, permitiendo que los filósofos compartan recursos de forma segura evitando **deadlocks** y **inanición**.
 
-## 🎯 Objective
+---
 
-The goal of the project is to implement a solution to the Dining Philosophers. Philosophers alternate between eating 🍴 and sleeping 💤, while attempting to pick up two forks simultaneously. The simulation ensures that no philosopher dies from starvation and all resources are managed efficiently.
+## 🎯 Objetivo
 
-## ⚙️ Features
+Implementar una solución al problema de los Filósofos Comensales. Los filósofos alternan entre comer 🍴 y dormir 💤, intentando tomar dos tenedores al mismo tiempo. La simulación asegura que ningún filósofo muera por inanición y que los recursos se gestionen eficientemente.
 
-- Each philosopher is represented as a thread.
-- Mutexes are used to prevent race conditions when accessing shared resources (forks 🍽️, print statements, etc.).
-- A monitoring thread oversees the simulation, detecting if a philosopher has died ☠️.
+---
 
-## 📝 Notes
+## ⚙️ Características
 
-- Time values must be at least **60ms** ⏳.
-- Negative or non-numeric input values are not allowed.
-- If only one philosopher is present, they will pick up a fork and starve (as per the problem constraints).
+- Cada filósofo es representado como un hilo (`thread`).
+- Se usan mutex para evitar condiciones de carrera al acceder a recursos compartidos (tenedores 🍽️, impresión en consola, etc.).
+- Un hilo monitor supervisa la simulación, detectando si algún filósofo ha muerto ☠️.
 
-## 🔢 Arguments
+---
 
-- **number_of_philosophers**: Number of philosophers (and forks 🍴) at the table.
-- **time_to_die**: Time (in milliseconds ⏱️) a philosopher can live without eating before dying.
-- **time_to_eat**: Time (in milliseconds ⏱️) a philosopher takes to eat.
-- **time_to_sleep**: Time (in milliseconds ⏱️) a philosopher takes to sleep.
-- **[number_of_times_each_philosopher_must_eat]** (optional): If specified, the simulation stops once all philosophers have eaten at least this many times 🍽️.
+## 📝 Notas Importantes
 
-## 🚀 Run
+- Los valores de tiempo deben ser al menos **60 ms** ⏳.
+- No se permiten valores negativos ni entradas no numéricas.
+- Si solo hay un filósofo, este cogerá un tenedor y eventualmente morirá por inanición (limitación del problema).
 
-Run the program with:
+---
+
+## 🔢 Argumentos del Programa
+
+| Argumento                            | Descripción                                                                 |
+|--------------------------------------|-----------------------------------------------------------------------------|
+| `number_of_philosophers`             | Número de filósofos (y tenedores 🍴) en la mesa.                           |
+| `time_to_die`                        | Tiempo en milisegundos ⏱️ que un filósofo puede vivir sin comer.           |
+| `time_to_eat`                        | Tiempo en milisegundos ⏱️ que tarda un filósofo en comer.                  |
+| `time_to_sleep`                      | Tiempo en milisegundos ⏱️ que tarda un filósofo en dormir.                 |
+| `[number_of_times_each_philosopher_must_eat]` (opcional) | Si se especifica, la simulación termina cuando todos los filósofos hayan comido al menos esta cantidad de veces 🍽️. |
+
+---
+
+## 🚀 Ejecución
+
 ```bash
-./philosophers number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+./philosophers number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat
+```
+
+## 🧪 Ejemplos de Ejecución
+
+Ejemplo 1: Simulación con 5 filósofos sin límite de comidas
+
+```bash
+./philosophers 5 800 200 200
+```
